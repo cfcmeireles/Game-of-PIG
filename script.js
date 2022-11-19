@@ -9,8 +9,8 @@
 
   const gameData = {
     dice: ["images/dice1.png", "images/dice2.png", "images/dice3.png", "images/dice4.png", "images/dice5.png", "images/dice6.png"],
-    players: ["Player 1", "Player 2"],
-    score: [0, 0],
+    players: ["Player 1", "Player 2", "Player 3"],
+    score: [0, 0, 0],
     dice1: 0,
     dice2: 0,
     diceTotal: 0,
@@ -21,7 +21,7 @@
   // Click event on startBtn to change h2 and btn text
 
   startGame.addEventListener("click", function () {
-    gameData.index = Math.round(Math.random());
+    gameData.index = Math.round(Math.random() * 2);
     console.log(gameData.index);
     control.innerHTML = `
   <h2 id="h2-title">The game has started</h2>
@@ -68,11 +68,31 @@
     if (gameData.diceTotal === 2) {
       game.innerHTML += "<p>Snakes eyes! 🎲🎲 Your score is now zeroed out</p>";
       gameData.score[gameData.index] = 0;
-      gameData.index ? (gameData.index = 0) : (gameData.index = 1);
+      switch (gameData.index) {
+        case (gameData.index = 0):
+          gameData.index = 1;
+          break;
+        case (gameData.index = 1):
+          gameData.index = 2;
+          break;
+        case (gameData.index = 2):
+          gameData.index = 0;
+          break;
+      }
       currentScore();
       setTimeout(setUpTurn, 2000);
     } else if (dice1 === 1 || dice2 === 1) {
-      gameData.index ? (gameData.index = 0) : (gameData.index = 1);
+      switch (gameData.index) {
+        case (gameData.index = 0):
+          gameData.index = 1;
+          break;
+        case (gameData.index = 1):
+          gameData.index = 2;
+          break;
+        case (gameData.index = 2):
+          gameData.index = 0;
+          break;
+      }
       game.innerHTML += "<p>You rolled a 1, you get no points and your turn is over!</p>";
       currentScore();
       setTimeout(setUpTurn, 2000);
@@ -83,7 +103,17 @@
         throwDice();
       });
       document.querySelector("#pass").addEventListener("click", function () {
-        gameData.index ? (gameData.index = 0) : (gameData.index = 1);
+        switch (gameData.index) {
+          case (gameData.index = 0):
+            gameData.index = 1;
+            break;
+          case (gameData.index = 1):
+            gameData.index = 2;
+            break;
+          case (gameData.index = 2):
+            gameData.index = 0;
+            break;
+        }
         setUpTurn();
       });
       checkWinningCondition();
@@ -107,6 +137,7 @@
   function currentScore() {
     score.innerHTML = `The current score is: <br>
     ${gameData.players[0]}: ${gameData.score[0]} points<br>
-     ${gameData.players[1]}: ${gameData.score[1]} points`;
+     ${gameData.players[1]}: ${gameData.score[1]} points<br>
+     ${gameData.players[2]}: ${gameData.score[2]} points`;
   }
 })();
