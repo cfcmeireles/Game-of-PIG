@@ -32,6 +32,13 @@ form {
   margin-bottom: 22px;
 }
 
+@media only screen and (max-width: 930px) {
+  form input {
+    display: block;
+    margin: auto;
+  }
+}
+
 #game,
 #actions,
 #score {
