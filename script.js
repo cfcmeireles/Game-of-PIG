@@ -6,21 +6,39 @@
   const actions = document.querySelector("#actions");
   const score = document.querySelector("#score");
   const control = document.querySelector("#gamecontrol");
+  const player1 = document.querySelector("#player1");
+  const player2 = document.querySelector("#player2");
+  const player3 = document.querySelector("#player3");
 
   const gameData = {
     dice: ["images/dice1.png", "images/dice2.png", "images/dice3.png", "images/dice4.png", "images/dice5.png", "images/dice6.png"],
-    players: ["Player 1", "Player 2", "Player 3"],
+    players: [`${player1}, ${player2}, ${player3}`],
     score: [0, 0, 0],
     dice1: 0,
     dice2: 0,
     diceTotal: 0,
+    turnTotal: 0,
     index: 0,
     gameEnd: 29,
   };
 
-  // Click event on startBtn to change h2 and btn text
+  // Click event on startBtn to change player names, h2 and btn text
 
   startGame.addEventListener("click", function () {
+    gameData.players[0] = player1.value;
+    gameData.players[1] = player2.value;
+    gameData.players[2] = player3.value;
+    if (player1.value == "" && player2.value == "" && player3.value == "") {
+      gameData.players[0] = "Player 1";
+      gameData.players[1] = "Player 2";
+      gameData.players[2] = "Player 3";
+    } else if (player1.value == "") {
+      gameData.players[0] = "Player 1";
+    } else if (player2.value == "") {
+      gameData.players[1] = "Player 2";
+    } else if (player3.value == "") {
+      gameData.players[2] = "Player 3";
+    }
     gameData.index = Math.round(Math.random() * 2);
     console.log(gameData.index);
     control.innerHTML = `
@@ -44,6 +62,7 @@
     actions.innerHTML = `<button id="roll">Roll the Dice</button>`;
     const rollBtn = document.querySelector("#roll");
     rollBtn.addEventListener("click", function () {
+      gameData.turnTotal = 0;
       throwDice();
     });
   }
@@ -55,7 +74,9 @@
     let dice1 = Math.floor(Math.random() * 6 + 1);
     let dice2 = Math.floor(Math.random() * 6 + 1);
     gameData.diceTotal = dice1 + dice2;
+    gameData.turnTotal += gameData.diceTotal;
     console.log(gameData.diceTotal);
+    console.log(gameData.turnTotal);
 
     game.innerHTML = `
     <p id="roll-paragraph">Rolling the dice for ${gameData.players[gameData.index]}</p>
@@ -84,17 +105,19 @@
     } else if (dice1 === 1 || dice2 === 1) {
       switch (gameData.index) {
         case (gameData.index = 0):
+          currentScoreMinusTotalTurn();
           gameData.index = 1;
           break;
         case (gameData.index = 1):
+          currentScoreMinusTotalTurn();
           gameData.index = 2;
           break;
         case (gameData.index = 2):
+          currentScoreMinusTotalTurn();
           gameData.index = 0;
           break;
       }
-      game.innerHTML += "<p>You rolled a 1, you get no points and your turn is over!</p>";
-      currentScore();
+      game.innerHTML += "<p>You rolled a 1, you get no points for this turn and your turn is over!</p>";
       setTimeout(setUpTurn, 2000);
     } else {
       gameData.score[gameData.index] = gameData.score[gameData.index] + gameData.diceTotal;
@@ -135,6 +158,14 @@
   }
 
   function currentScore() {
+    score.innerHTML = `The current score is: <br>
+    ${gameData.players[0]}: ${gameData.score[0]} points<br>
+     ${gameData.players[1]}: ${gameData.score[1]} points<br>
+     ${gameData.players[2]}: ${gameData.score[2]} points`;
+  }
+
+  function currentScoreMinusTotalTurn() {
+    gameData.score[gameData.index] = gameData.score[gameData.index] - gameData.turnTotal + gameData.diceTotal;
     score.innerHTML = `The current score is: <br>
     ${gameData.players[0]}: ${gameData.score[0]} points<br>
      ${gameData.players[1]}: ${gameData.score[1]} points<br>

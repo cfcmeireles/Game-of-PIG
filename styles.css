@@ -1,6 +1,9 @@
+* {
+  font-family: "Indie Flower", cursive;
+}
+
 body {
   background-color: #e1e5ee;
-  font-family: "Indie Flower", cursive;
   font-weight: 600;
   font-size: 18px;
 }
@@ -23,6 +26,10 @@ h1 ~ p {
 
 h2 {
   color: #767b91;
+}
+
+form {
+  margin-bottom: 22px;
 }
 
 #game,
