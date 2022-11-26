@@ -12,38 +12,27 @@
 
   const gameData = {
     dice: ["images/dice1.png", "images/dice2.png", "images/dice3.png", "images/dice4.png", "images/dice5.png", "images/dice6.png"],
-    players: [`${player1}, ${player2}, ${player3}`],
+    players: [],
     score: [0, 0, 0],
     dice1: 0,
     dice2: 0,
     diceTotal: 0,
     turnTotal: 0,
     index: 0,
-    gameEnd: 29,
+    gameEnd: [],
   };
 
   // Click event on startBtn to change player names, h2 and btn text
 
   startGame.addEventListener("click", function () {
-    gameData.players[0] = player1.value;
-    gameData.players[1] = player2.value;
-    gameData.players[2] = player3.value;
-    if (player1.value == "" && player2.value == "" && player3.value == "") {
-      gameData.players[0] = "Player 1";
-      gameData.players[1] = "Player 2";
-      gameData.players[2] = "Player 3";
-    } else if (player1.value == "") {
-      gameData.players[0] = "Player 1";
-    } else if (player2.value == "") {
-      gameData.players[1] = "Player 2";
-    } else if (player3.value == "") {
-      gameData.players[2] = "Player 3";
-    }
+    players();
+    gameEnd();
+
     gameData.index = Math.round(Math.random() * 2);
     console.log(gameData.index);
     control.innerHTML = `
-  <h2 id="h2-title">The game has started</h2>
-  <button id="quit">Wanna quit?</button>`;
+    <h2 id="h2-title">The game has started</h2>
+    <button id="quit">Wanna quit?</button>`;
 
     // Click event to reload page on quit button
 
@@ -54,6 +43,48 @@
     });
     setUpTurn();
   });
+
+  // Player names function
+
+  function players() {
+    gameData.players[0] = player1.value;
+    gameData.players[1] = player2.value;
+    gameData.players[2] = player3.value;
+    // If all players fields are empty
+    if (player1.value === "" && player2.value === "" && player3.value === "") {
+      gameData.players[0] = "Player 1";
+      gameData.players[1] = "Player 2";
+      gameData.players[2] = "Player 3";
+      // If each individual player field is empty
+    } else if (player1.value === "") {
+      gameData.players[0] = "Player 1";
+    } else if (player2.value === "") {
+      gameData.players[1] = "Player 2";
+    } else if (player3.value === "") {
+      gameData.players[2] = "Player 3";
+    }
+    // If 2 player fields are empty
+    if (player1.value === "" && player2.value === "") {
+      gameData.players[0] = "Player 1";
+      gameData.players[1] = "Player 2";
+    } else if (player2.value === "" && player3.value === "") {
+      gameData.players[1] = "Player 2";
+      gameData.players[2] = "Player 3";
+    } else if (player1.value === "" && player3.value === "") {
+      gameData.players[0] = "Player 1";
+      gameData.players[2] = "Player 3";
+    }
+  }
+
+  // Game end function
+
+  function gameEnd() {
+    gameData.gameEnd = document.querySelector("#points").value;
+    console.log(gameData.gameEnd);
+    if (gameData.gameEnd === "") {
+      gameData.gameEnd = 30;
+    }
+  }
 
   // Set up turn function
 
@@ -146,7 +177,7 @@
   // Winning condition
 
   function checkWinningCondition() {
-    if (gameData.score[gameData.index] > gameData.gameEnd) {
+    if (gameData.score[gameData.index] >= gameData.gameEnd) {
       score.innerHTML = `<h2>${gameData.players[gameData.index]} has won with ${gameData.score[gameData.index]} points! Congratulations! 🎉 </h2>`;
       actions.innerHTML = "";
       document.querySelector("#roll-paragraph").innerHTML = "";
