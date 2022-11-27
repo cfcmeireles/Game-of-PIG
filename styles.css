@@ -20,7 +20,9 @@ h1 ~ p {
 }
 
 .note {
-  text-decoration: underline;
+  color: #767b91;
+  margin-top: -20px;
+  font-size: 15px;
 }
 
 #gamecontrol {
