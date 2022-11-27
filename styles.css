@@ -39,6 +39,11 @@ form {
 }
 
 @media only screen and (max-width: 930px) {
+  #gamecontrol {
+    margin-top: 22px;
+    text-align: center;
+  }
+
   form input {
     display: block;
     margin: auto;
