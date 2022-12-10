@@ -55,23 +55,15 @@
       gameData.players[0] = "Player 1";
       gameData.players[1] = "Player 2";
       gameData.players[2] = "Player 3";
-      // If each individual player field is empty
-    } else if (player1.value === "") {
-      gameData.players[0] = "Player 1";
-    } else if (player2.value === "") {
-      gameData.players[1] = "Player 2";
-    } else if (player3.value === "") {
-      gameData.players[2] = "Player 3";
     }
-    // If 2 player fields are empty
-    if (player1.value === "" && player2.value === "") {
+    // If each individual player field is empty
+    if (player1.value === "") {
       gameData.players[0] = "Player 1";
+    }
+    if (player2.value === "") {
       gameData.players[1] = "Player 2";
-    } else if (player2.value === "" && player3.value === "") {
-      gameData.players[1] = "Player 2";
-      gameData.players[2] = "Player 3";
-    } else if (player1.value === "" && player3.value === "") {
-      gameData.players[0] = "Player 1";
+    }
+    if (player3.value === "") {
       gameData.players[2] = "Player 3";
     }
   }
