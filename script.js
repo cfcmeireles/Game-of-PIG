@@ -1,5 +1,11 @@
 (function () {
   "use strict";
+  
+    document.addEventListener("keydown", function (event) {
+    if (event.key === "Enter") {
+      startGame.click();
+    }
+  });
 
   const startGame = document.querySelector("#startgame");
   const game = document.querySelector("#game");
