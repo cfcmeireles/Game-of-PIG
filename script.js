@@ -12,13 +12,11 @@
   const actions = document.querySelector("#actions");
   const score = document.querySelector("#score");
   const control = document.querySelector("#gamecontrol");
-  const player1 = document.querySelector("#player1");
-  const player2 = document.querySelector("#player2");
-  const player3 = document.querySelector("#player3");
+  const player = document.querySelectorAll("#player");
 
   const gameData = {
     dice: ["images/dice1.png", "images/dice2.png", "images/dice3.png", "images/dice4.png", "images/dice5.png", "images/dice6.png"],
-    players: [],
+    players: [1, 2, 3],
     score: [0, 0, 0],
     dice1: 0,
     dice2: 0,
@@ -53,24 +51,11 @@
   // Player names function
 
   function players() {
-    gameData.players[0] = player1.value;
-    gameData.players[1] = player2.value;
-    gameData.players[2] = player3.value;
-    // If all players fields are empty
-    if (player1.value === "" && player2.value === "" && player3.value === "") {
-      gameData.players[0] = "Player 1";
-      gameData.players[1] = "Player 2";
-      gameData.players[2] = "Player 3";
-    }
-    // If each individual player field is empty
-    if (player1.value === "") {
-      gameData.players[0] = "Player 1";
-    }
-    if (player2.value === "") {
-      gameData.players[1] = "Player 2";
-    }
-    if (player3.value === "") {
-      gameData.players[2] = "Player 3";
+    for (var i = 0; i < gameData.players.length; i++) {
+      gameData.players[i] = player[i].value;
+      if (player[i].value === "") {
+        gameData.players[i] = `Player ${i + 1}`;
+      }
     }
   }
 
